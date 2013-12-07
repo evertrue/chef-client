@@ -2,6 +2,10 @@ chef-client Cookbook CHANGELOG
 ==============================
 This file is used to list changes made in each version of the chef-client cookbook.
 
+v3.2.0
+------
+### Bug
+- **[COOK-1825](https://tickets.opscode.com/browse/COOK-1825)** - Send email notification when restart is required (in lieu of actual restarts)
 
 v3.1.0
 ------
