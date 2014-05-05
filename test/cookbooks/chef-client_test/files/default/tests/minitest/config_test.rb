@@ -27,8 +27,8 @@ describe 'chef-client::config' do
     file(File.join(node['chef_client']['conf_dir'], 'client.rb')).must_match('^validation_client_name')
   end
 
-  it 'disables ohai plugins' do
-    regexp = 'Ohai::Config\[:disabled_plugins\] =\s+\["passwd"\]'
+  it 'disables ohai 6 & 7 plugins' do
+    regexp = 'Ohai::Config\[:disabled_plugins\] =\s+\[:Passwd,"dmi"\]'
     file(File.join(node['chef_client']['conf_dir'], 'client.rb')).must_match(/#{regexp}/)
   end
 
@@ -55,10 +55,17 @@ describe 'chef-client::config' do
   it 'enables exception_handlers' do
     file(File.join(node['chef_client']['conf_dir'], 'client.rb')).must_match(
       '^exception_handlers << SimpleReport::UpdatedResources.new'
-      )
+    )
   end
 
   it 'creates a directory for including config' do
     directory(File.join(node['chef_client']['conf_dir'], 'client.d')).must_exist
   end
+
+  it 'includes client_fork true in the config file' do
+    file(File.join(node['chef_client']['conf_dir'], "client.rb")).must_match(
+      '^client_fork true'
+    )
+  end
+
 end
